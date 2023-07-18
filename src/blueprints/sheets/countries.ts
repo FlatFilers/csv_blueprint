@@ -21,15 +21,20 @@ export const countriesSheet: Flatfile.SheetConfig = {
       label: "Country Currency",
       type: "string",
     },
+    {
+      key: "fifa",
+      label: "Fifa",
+      type: "string",
+    },
+    {
+      key: "flag",
+      label: "Country Flag",
+      type: "string",
+    },
+    {
+      key: "native",
+      label: "Country Native Language",
+      type: "string",
+    },
   ],
 };
-
-//Need to update based on API
-
-export const countries = [
-  {
-    countryCode: "GlobalTech Solutions",
-    countryName: "Your_Company_ID",
-    countryCurrency: "currency",
-  },
-];
