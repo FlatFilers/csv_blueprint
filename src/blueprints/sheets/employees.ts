@@ -133,6 +133,13 @@ export const employeeSheet: Flatfile.SheetConfig = {
       primary: true,
     },
     {
+      operation: "generate-ids",
+      mode: "background",
+      label: "Generate IDs",
+      description: "Adds a unique ID for employees that are missing one",
+      primary: false,
+    },
+    {
       operation: "dedupe",
       mode: "foreground",
       label: "Dedupe",
