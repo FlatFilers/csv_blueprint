@@ -4,17 +4,31 @@ import api from "@flatfile/api";
 export default function (listener: FlatfileListener) {
   listener.filter({ job: "sheet:check-watchlist" }, (jobListener) => {
     jobListener.on("job:ready", async (e) => {
-      // acck the ob
+      const { jobId, sheetId } = e.context;
+
+      await api.jobs.ack(jobId, {
+        info: "Starting job to write to Excel file",
+        progress: 10,
+      });
+
       const records = await e.data;
-      // map the records with a random watchlist fail
+
       await api.records.update(
-        e.context.sheetId,
+        sheetId,
         records.map((r) => {
-          // do a thing
+          if (Math.random() <= 0.2) {
+            r.addError("name", "Invalid value");
+          }
+
           return r;
         }),
       );
-      //   complete the job
+
+      await api.jobs.complete(jobId, {
+        outcome: {
+          message: "Watchlist validation complete"
+        },
+      });
     });
   });
 }
