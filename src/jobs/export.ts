@@ -61,24 +61,21 @@ export const xlsxSinkPlugin = () => {
               Object.entries(cellData).forEach(([column, value]: [string, any], cellIndex: number) => {
                 newRow.push(value.value);
               });
-              Object.entries(cellData).forEach(([column, value]: [string, any], cellIndex: number) => {
-                newRow.push(value.value);
-              });
 
               // Add the new row to the worksheet
               const row = newWorksheet.addRow(newRow);
 
               Object.entries(cellData).forEach(([column, value]: [string, any], cellIndex: number) => {
                 const filtered = value.messages.filter((m) => m.type === "error");
-                
+
                 if (filtered.length === 0) return;
 
-                const mapped = filtered.map((m) => {
+                const comments = filtered.map((m) => {
                   return { font: { color: { argb: "FF0000" } }, text: m.message };
                 });
 
                 newRow.push(value.value);
-                row.getCell(cellIndex + 1).note = { texts: mapped };
+                row.getCell(cellIndex + 1).note = { texts: comments };
               });
             });
           }
