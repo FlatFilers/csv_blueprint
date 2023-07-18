@@ -1,12 +1,12 @@
 import { Flatfile } from '@flatfile/api'
-import { workerDataSheet } from '../sheets/workerData'
+import { employeeSheet } from '../sheets/employees'
 import { companiesSheet } from '../sheets/companies'
 import { locationsSheet } from '../sheets/locations'
-import { departmentsSheet } from '../sheets/departments'
+import { countriesSheet } from '../sheets/countries'
 
 export const blueprintSheets: Flatfile.SheetConfig[] = [
-  workerDataSheet,
+  employeeSheet,
+  countriesSheet,
   companiesSheet,
   locationsSheet,
-  departmentsSheet,
 ]

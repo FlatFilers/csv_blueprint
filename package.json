@@ -16,7 +16,9 @@
     "@flatfile/plugin-record-hook": "^0.1.11",
     "@flatfile/plugin-xlsx-extractor": "^1.0.6",
     "axios": "^1.4.0",
-    "flatfile": "^3.5.0"
+    "email-validator": "^2.0.4",
+    "flatfile": "^3.5.0",
+    "parse-full-name": "^1.2.6"
   },
   "devDependencies": {
     "@types/node": "^18.16.0"

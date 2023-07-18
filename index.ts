@@ -4,12 +4,15 @@ import api from '@flatfile/api'
 import { blueprintSheets } from './blueprints/blueprint'
 import { theme } from './themes/theme'
 import { xlsxExtractorPlugin } from '@flatfile/plugin-xlsx-extractor'
+import { countries } from './sheets/countries'
+import { companyValidations } from './sheets/companies'
 
 export default function flatfileEventListener(listener: Client) {
   listener.on('**', ({ topic }: FlatfileEvent) => {
     console.log(`Received event: ${topic}`)
   })
 
+  // SET UP SPACE
   listener.filter({ job: 'space:configure' }, (configure) => {
     configure.on('job:ready', async (event) => {
       console.log('Reached the job:ready event callback')
@@ -83,6 +86,82 @@ export default function flatfileEventListener(listener: Client) {
       console.log('Space creation has completed: ' + JSON.stringify(event))
     })
   })
+
+  // SEED THE WORKBOOK WITH DATA
+  listener.on('workbook:created', async (event) => {
+    if (!event.context || !event.context.workbookId) {
+      console.error('Event context or workbookId missing')
+      return
+    }
+
+    const workbookId = event.context.workbookId
+    let workbook
+    try {
+      workbook = await api.workbooks.get(workbookId)
+    } catch (error) {
+      console.error('Error getting workbook:', error.message)
+      return
+    }
+
+    const workbookName =
+      workbook.data && workbook.data.name ? workbook.data.name : ''
+    const spaceId =
+      workbook.data && workbook.data.spaceId ? workbook.data.spaceId : ''
+
+    if (workbookName.includes('Data Import Workbook')) {
+      const sheets =
+        workbook.data && workbook.data.sheets ? workbook.data.sheets : []
+
+      // Countries
+      const countriesSheet = sheets.find((s) =>
+        s.config.slug.includes('countries')
+      )
+      if (countriesSheet && Array.isArray(countries)) {
+        const countriesId = countriesSheet.id
+        const request1 = countries.map(
+          ({ countryCode, countryName, countryCurrency }) => ({
+            code: { value: countryCode },
+            name: { value: countryName },
+            currency: { value: countryCurrency },
+          })
+        )
+
+        try {
+          const insertCountries = await api.records.insert(
+            countriesId,
+            request1
+          )
+        } catch (error) {
+          console.error('Error inserting companies:', error.message)
+        }
+      }
+    }
+  })
+
+  // RECORD HOOK VALIDATIONS
+
+  listener.use(
+    recordHook('companies', (record: FlatfileRecord) => {
+      try {
+        // Apply the company validations to the record
+        return companyValidations(record)
+      } catch (error) {
+        console.error('Error during company validation:', error)
+      }
+    })
+  )
+
+  listener.use(
+    recordHook('companies', (record: FlatfileRecord) => {
+      try {
+        // Apply the company validations to the record
+        return companyValidations(record)
+      } catch (error) {
+        console.error('Error during company validation:', error)
+      }
+    })
+  )
+
   // PARSE XLSX FILES
   listener.use(xlsxExtractorPlugin({ rawNumbers: true }))
 }
