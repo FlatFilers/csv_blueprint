@@ -2,7 +2,7 @@ import { Flatfile } from '@flatfile/api'
 
 export const countriesSheet: Flatfile.SheetConfig = {
   name: 'Countries🔄',
-  slug: 'Countries',
+  slug: 'countries',
   readonly: true,
   access: [],
   fields: [
