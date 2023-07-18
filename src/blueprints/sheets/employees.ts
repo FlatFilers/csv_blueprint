@@ -132,6 +132,34 @@ export const employeeSheet: Flatfile.SheetConfig = {
       description: "Validates data against the 'Watchlist'",
       primary: true,
     },
+    {
+      operation: "dedupe",
+      mode: "foreground",
+      label: "Dedupe",
+      description: "Deduplicates employees based on ID",
+      primary: false,
+    },
+    {
+      operation: "enrich",
+      mode: "foreground",
+      label: "Enrich",
+      description: "Enrich employee data by running an API call to a 3rd party service",
+      primary: false,
+    },
+    {
+      operation: "tacos",
+      mode: "background",
+      label: "Send Tacos",
+      description: "Send tacos to all employees in the current view. Must have valid location.",
+      primary: false,
+    },
+    {
+      operation: "backgroundCheck",
+      mode: "background",
+      label: "Background Check",
+      description: "Send selected employees to background check service for processing.",
+      primary: false,
+    }
   ],
 };
 
