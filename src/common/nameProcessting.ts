@@ -39,9 +39,9 @@ export function concatenateNames(record) {
     // Concatenating names if full name is missing and both first and last names are present
     console.log("Concatenating names...");
     if ((full === null || full === "") && first !== null && first !== "" && last !== null && last !== "") {
-      record.set("Legal_Full_Name", `${first} ${last}`);
+      record.set("full", `${first} ${last}`);
       if (middle !== null && middle !== "") {
-        record.set("Legal_Full_Name", `${first} ${middle} ${last}`);
+        record.set("full", `${first} ${middle} ${last}`);
       }
     }
 
