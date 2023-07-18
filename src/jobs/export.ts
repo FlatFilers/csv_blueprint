@@ -106,7 +106,7 @@ export const xlsxSinkPlugin = () => {
             },
           });
         } catch (error) {
-          console.log(`Error: ${JSON.stringify(error, null, 2)}`, error);
+          console.log(`Error: ${JSON.stringify(error, null, 2)}`);
 
           await api.jobs.fail(jobId, {
             outcome: {
