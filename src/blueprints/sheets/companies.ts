@@ -77,15 +77,6 @@ export const companiesSheet: Flatfile.SheetConfig = {
       },
     },
   ],
-  actions: [
-    {
-      operation: "check-watchlist",
-      mode: "foreground",
-      label: "Check Watchlist",
-      description: "Validates data against the 'Watchlist'",
-      primary: true,
-    },
-  ],
 };
 
 // Hooks

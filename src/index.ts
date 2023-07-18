@@ -5,6 +5,7 @@ import { companyValidations, employeeValidations } from "./blueprints";
 import { configureSpace } from "./jobs/space:configure";
 import { seedCountries } from "./handlers/seed.countries";
 import reviewData from "./jobs/workbook:review-data";
+import watchList from "./jobs/watchlist";
 
 /**
  * This default export is used by Flatfile to register event handlers for any
@@ -18,6 +19,7 @@ export default function (listener: FlatfileListener) {
   listener.use(configureSpace);
   listener.use(seedCountries);
   listener.use(reviewData);
+  listener.use(watchList);
 
   listener.use(recordHook("companies", companyValidations));
   listener.use(recordHook("employees", employeeValidations));
