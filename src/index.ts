@@ -1,10 +1,10 @@
 import { FlatfileListener } from "@flatfile/listener";
 import { recordHook } from "@flatfile/plugin-record-hook";
 import { xlsxExtractorPlugin } from "@flatfile/plugin-xlsx-extractor";
-import { companyValidations } from "./blueprints/sheets/companies";
+import { companyValidations, employeeValidations } from "./blueprints";
 import { configureSpace } from "./jobs/space:configure";
 import { seedCountries } from "./handlers/seed.countries";
-import { employeeValidations } from "./blueprints/sheets/employees";
+import reviewData from "./jobs/workbook:review-data";
 
 /**
  * This default export is used by Flatfile to register event handlers for any
@@ -13,8 +13,11 @@ import { employeeValidations } from "./blueprints/sheets/employees";
  * @param listener
  */
 export default function (listener: FlatfileListener) {
+  listener.on("**", console.log);
+
   listener.use(configureSpace);
   listener.use(seedCountries);
+  listener.use(reviewData);
 
   listener.use(recordHook("companies", companyValidations));
   listener.use(recordHook("employees", employeeValidations));

@@ -1,6 +1,6 @@
 import { FlatfileListener } from "@flatfile/listener";
 import api from "@flatfile/api";
-import { blueprintSheets } from "../blueprints/blueprint";
+import { companiesSheet, countriesSheet, employeeSheet, locationsSheet } from "../blueprints";
 
 export function configureSpace(listener: FlatfileListener) {
   listener.filter({ job: "space:configure" }, (configure) => {
@@ -14,15 +14,15 @@ export function configureSpace(listener: FlatfileListener) {
         const createWorkbook = await api.workbooks.create({
           spaceId: spaceId,
           environmentId: environmentId,
-          name: "Data Import Workbook",
-          sheets: blueprintSheets,
+          name: "Employee Registry Onboarding",
+          sheets: [employeeSheet, companiesSheet, locationsSheet, countriesSheet],
           actions: [
             {
-              operation: "submitAction",
+              operation: "review-data",
               mode: "foreground",
-              label: "Submit",
+              label: "Request Review",
               type: "string",
-              description: "Submit Data to the Smokeball app",
+              description: "A representative from Acme Inc. will review your data.",
               primary: true,
             },
           ],

@@ -4,7 +4,7 @@ import { concatenateNames, splitFullName } from "../../common/nameProcessting";
 import { validate } from "email-validator";
 
 export const employeeSheet: Flatfile.SheetConfig = {
-  name: "Employee Data",
+  name: "👥 Employees",
   slug: "employees",
   fields: [
     {

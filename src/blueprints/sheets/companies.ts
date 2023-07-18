@@ -2,10 +2,8 @@ import { Flatfile } from "@flatfile/api";
 import { vlookup } from "../../common/vlookup";
 
 export const companiesSheet: Flatfile.SheetConfig = {
-  name: "Companies",
+  name: "🏢 Companies",
   slug: "companies",
-  readonly: true,
-  access: [],
   fields: [
     {
       key: "id",

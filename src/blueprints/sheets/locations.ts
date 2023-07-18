@@ -2,7 +2,7 @@ import { Flatfile } from "@flatfile/api";
 import { FlatfileRecord } from "@flatfile/plugin-record-hook";
 
 export const locationsSheet: Flatfile.SheetConfig = {
-  name: "Locations",
+  name: "📍 Locations",
   slug: "locations",
   access: [],
   fields: [
