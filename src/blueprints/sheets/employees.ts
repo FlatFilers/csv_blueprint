@@ -149,7 +149,7 @@ export function employeeValidations(record: FlatfileRecord) {
   // email validation
 
   try {
-    const emailAddress = record.get("Email_Address");
+    const emailAddress = record.get("email");
 
     if (typeof emailAddress === "string") {
       // Use the EmailValidator library to check if the email address is in a valid format
@@ -158,16 +158,16 @@ export function employeeValidations(record: FlatfileRecord) {
       // If the email address is not valid, add an error message to the record
       if (!isValid) {
         record.addError(
-          "Email_Address",
+          "email",
           "Email addresses must be in the format of 'xxx@yy.com'. Valid examples: john.doe@aol.com, jane@aol.com.",
         );
       }
     } else {
-      record.addError("Email_Address", "Email address should be a string.");
+      record.addError("email", "Email address should be a string.");
     }
   } catch (error) {
     // If an exception occurs during execution of the function, add an error message to the record with the error details
-    record.addError("Email_Address", `Error validating email format: ${error.message}`);
+    record.addError("email", `Error validating email format: ${error.message}`);
   }
 
   // date validation
