@@ -84,13 +84,16 @@ export function companyValidations(record: FlatfileRecord) {
         "Domain was converted to lowercase.",
       );
 
-      // Validate the domain format using a regular expression
-      const domainIsValid = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/.test(domain.toLowerCase());
+      if (typeof domain === "string") {
+        // Validate the domain format using a regular expression
+        const domainIsValid = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/.test(domain.toLowerCase());
 
-      // If the domain format is invalid, add an error to the record
-      if (!domainIsValid) {
-        record.addError("domain", "Invalid domain.");
+        // If the domain format is invalid, add an error to the record
+        if (!domainIsValid) {
+          record.addError("domain", "Invalid domain.");
+        }
       }
+
     } catch (error) {
       console.error("Validation Error: Domain must be in a valid format:", error);
     }
