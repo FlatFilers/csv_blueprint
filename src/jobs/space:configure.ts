@@ -25,6 +25,13 @@ export function configureSpace(listener: FlatfileListener) {
               description: "A representative from Acme Inc. will review your data.",
               primary: true,
             },
+            {
+              operation: "downloadExcelWorkbook",
+              mode: "foreground",
+              label: "Download Excel Workbook",
+              description: "Downloads Excel Workbook of Data",
+              primary: false,
+            },
           ],
         });
 
