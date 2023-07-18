@@ -4,7 +4,6 @@ import { FlatfileRecord } from "@flatfile/plugin-record-hook";
 export const locationsSheet: Flatfile.SheetConfig = {
   name: "📍 Locations",
   slug: "locations",
-  access: [],
   fields: [
     {
       key: "id",

@@ -81,22 +81,34 @@ export const companiesSheet: Flatfile.SheetConfig = {
 
 // Hooks
 
-export function companyValidations(record) {
+export function companyValidations(record: any) {
   // Validate the input record parameter
   if (!record || typeof record !== "object") {
     console.error("Invalid record input. Expecting a valid record object.");
     throw new Error("Invalid record input. Expecting a valid record object.");
   }
 
-  try {
-    record.validateIfPresent("domain", (domain: string) => {
-      const domainRegex = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/;
-      if (!domainRegex.test(domain)) {
-        return "Invalid domain format.";
+  const domain = record.get("domain");
+
+  if (domain) {
+    try {
+      // Convert the domain to lowercase for uniformity
+      record.compute(
+        "domain",
+        (domain: string | null | undefined) => (domain ? domain.toLowerCase() : domain),
+        "Domain was converted to lowercase.",
+      );
+
+      // Validate the domain format using a regular expression
+      const domainIsValid = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/.test(domain.toLowerCase());
+
+      // If the domain format is invalid, add an error to the record
+      if (!domainIsValid) {
+        record.addError("domain", "Invalid domain.");
       }
-    });
-  } catch (error) {
-    console.error("Error during domain validation:", error);
+    } catch (error) {
+      console.error("Validation Error: Domain must be in a valid format:", error);
+    }
   }
 
   try {
