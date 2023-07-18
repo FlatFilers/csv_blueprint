@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "flatfile develop index.ts",
-    "deploy": "npx flatfile@latest deploy index.js"
+    "start": "npx parcel basic-app/index.html",
+    "develop": "npx flatfile@latest develop src/index.ts",
+    "deploy": "npx flatfile@latest deploy src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +18,14 @@
     "@flatfile/plugin-xlsx-extractor": "^1.0.6",
     "axios": "^1.4.0",
     "email-validator": "^2.0.4",
-    "flatfile": "^3.5.0",
+    "flatfile": "^3.5.7",
     "parse-full-name": "^1.2.6"
   },
+  "prettier": {
+    "printWidth": 120
+  },
   "devDependencies": {
-    "@types/node": "^18.16.0"
+    "@types/node": "^18.16.0",
+    "prettier": "^3.0.0"
   }
 }

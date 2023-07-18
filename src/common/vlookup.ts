@@ -13,20 +13,12 @@ the value to be looked up.
 @param {string} targetFieldKey - The name of the field on the original record that the
 lookup value should be set to.
 */
-export const vlookup = (
-  record,
-  referenceFieldKey,
-  lookupFieldKey,
-  targetFieldKey
-) => {
-  const links = record.getLinks(referenceFieldKey)
-  const lookupValue = links?.[0]?.[lookupFieldKey]
+export const vlookup = (record, referenceFieldKey, lookupFieldKey, targetFieldKey) => {
+  const links = record.getLinks(referenceFieldKey);
+  const lookupValue = links?.[0]?.[lookupFieldKey];
 
   if (lookupValue !== null && lookupValue !== undefined) {
-    record.set(targetFieldKey, lookupValue)
-    record.addInfo(
-      targetFieldKey,
-      `${targetFieldKey} set based on ${referenceFieldKey}.`
-    )
+    record.set(targetFieldKey, lookupValue);
+    record.addInfo(targetFieldKey, `${targetFieldKey} set based on ${referenceFieldKey}.`);
   }
-}
+};
