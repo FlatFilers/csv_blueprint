@@ -25,7 +25,6 @@ export const employeeSheet: Flatfile.SheetConfig = {
       key: "country",
       label: "Country",
       type: "reference",
-      constraints: [{ type: "required" }],
       config: {
         ref: "countries",
         key: "name",
@@ -90,17 +89,15 @@ export const employeeSheet: Flatfile.SheetConfig = {
     },
     {
       key: "date",
-      label: "Visit Date",
+      label: "Last Visit Date",
       type: "date",
       description: 'Provide the worker"s latest date of hire.',
-      constraints: [{ type: "required" }],
     },
     {
       key: "title",
       label: "Job Title",
       type: "string",
       description: "Provide the job title of the employee",
-      constraints: [{ type: "required" }],
     },
     {
       key: "company",
@@ -120,7 +117,6 @@ export const employeeSheet: Flatfile.SheetConfig = {
       type: "reference",
       description:
         "Choose a Location from the dropdown menu. The menu consists of Locations you entered into the tenant during an earlier journey.",
-      constraints: [{ type: "required" }],
       config: {
         ref: "locations",
         key: "name",

@@ -1,5 +1,6 @@
 import { Flatfile } from "@flatfile/api";
 import { vlookup } from "../../common/vlookup";
+import { FlatfileRecord } from "@flatfile/plugin-record-hook";
 
 export const companiesSheet: Flatfile.SheetConfig = {
   name: "🏢 Companies",
@@ -37,21 +38,11 @@ export const companiesSheet: Flatfile.SheetConfig = {
       type: "string",
       description:
         "This field is used to capture the primary domain name of a company's website. It should be entered in the format 'companyname.com'. The domain name provides a unique identifier for the company on the internet and is used for the company's website and email addresses. Please ensure to enter the correct and full domain name, including any necessary top-level domain (like .com, .org, .net, etc.). Note that it should not include 'www' or 'http://'.",
-      constraints: [
-        {
-          type: "required",
-        },
-      ],
     },
     {
       key: "count",
       label: "Employee Count",
       type: "number",
-      constraints: [
-        {
-          type: "required",
-        },
-      ],
     },
     {
       key: "country",
@@ -67,21 +58,15 @@ export const companiesSheet: Flatfile.SheetConfig = {
     {
       key: "currency",
       label: "Currency",
-      type: "reference",
+      type: "string",
       readonly: true,
-      constraints: [{ type: "required" }],
-      config: {
-        ref: "countries",
-        key: "currency",
-        relationship: "has-one",
-      },
     },
   ],
 };
 
 // Hooks
 
-export function companyValidations(record: any) {
+export function companyValidations(record: FlatfileRecord) {
   // Validate the input record parameter
   if (!record || typeof record !== "object") {
     console.error("Invalid record input. Expecting a valid record object.");

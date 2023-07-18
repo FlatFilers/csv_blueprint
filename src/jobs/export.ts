@@ -10,8 +10,6 @@ export const xlsxSinkPlugin = () => {
       configure.on("job:ready", async (event: any) => {
         const { jobId, workbookId, spaceId, environmentId } = event.context;
 
-        console.log(`JobId: ${jobId}, WorkbookId: ${workbookId}, SpaceId: ${spaceId}, EnvironmentId: ${environmentId}`);
-
         // Get all sheets
         const sheetsResponse = await api.sheets.list({ workbookId });
         const sheets = sheetsResponse.data;
@@ -74,7 +72,6 @@ export const xlsxSinkPlugin = () => {
                   return { font: { color: { argb: "FF0000" } }, text: m.message };
                 });
 
-                newRow.push(value.value);
                 row.getCell(cellIndex + 1).note = { texts: comments };
               });
             });

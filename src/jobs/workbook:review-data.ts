@@ -12,12 +12,13 @@ export default function reviewData(listener: FlatfileListener) {
       ...employeeSheet,
       fields: [{ key: "watchlist-report", label: "Watchlist Report", type: "string" }, ...employeeSheet.fields],
     };
+    let workbookId;
     try {
       // Create a new workbook
       const createWorkbook = await api.workbooks.create({
         spaceId: spaceId,
         environmentId: environmentId,
-        name: "Review Workbook",
+        name: "Review " + new Date().toISOString(),
         sheets: [employeeWithWatchlist, countriesSheet, companiesSheet, locationsSheet],
         actions: [
           {
@@ -39,7 +40,7 @@ export default function reviewData(listener: FlatfileListener) {
         ],
       });
 
-      const workbookId = createWorkbook.data?.id;
+      workbookId = createWorkbook.data?.id;
 
       if (workbookId) {
         await api.spaces.update(spaceId, {
@@ -55,6 +56,10 @@ export default function reviewData(listener: FlatfileListener) {
       return;
     }
 
-    await api.jobs.complete(jobId, { info: "Successfully configured!" });
+    await api.jobs.complete(jobId, {
+      outcome: {
+        message: "Your data has been submitted for review successfully.",
+      },
+    });
   });
 }

@@ -15,8 +15,6 @@ import { xlsxSinkPlugin } from "./jobs/export";
  * @param listener
  */
 export default function (listener: FlatfileListener) {
-  listener.on("**", console.log);
-
   listener.use(configureSpace);
   listener.use(seedCountries);
   listener.use(reviewData);

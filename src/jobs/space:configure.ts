@@ -14,7 +14,7 @@ export function configureSpace(listener: FlatfileListener) {
         const createWorkbook = await api.workbooks.create({
           spaceId: spaceId,
           environmentId: environmentId,
-          name: "Employee Registry Onboarding",
+          name: "Employee Registry",
           sheets: [employeeSheet, companiesSheet, locationsSheet, countriesSheet],
           actions: [
             {
