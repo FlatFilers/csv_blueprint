@@ -3,14 +3,15 @@ import { FlatfileEvent, Client } from '@flatfile/listener'
 import api from '@flatfile/api'
 import { blueprintSheets } from './blueprints/blueprint'
 import { theme } from './themes/theme'
+import { xlsxExtractorPlugin } from '@flatfile/plugin-xlsx-extractor'
 
 export default function flatfileEventListener(listener: Client) {
   listener.on('**', ({ topic }: FlatfileEvent) => {
     console.log(`Received event: ${topic}`)
   })
 
-  listener.filter({ job: 'space:configure' }, (configure: any) => {
-    configure.on('job:ready', async (event: any) => {
+  listener.filter({ job: 'space:configure' }, (configure) => {
+    configure.on('job:ready', async (event) => {
       console.log('Reached the job:ready event callback')
 
       // Destructure the 'context' object from the event object to get the necessary IDs
@@ -82,4 +83,6 @@ export default function flatfileEventListener(listener: Client) {
       console.log('Space creation has completed: ' + JSON.stringify(event))
     })
   })
+  // PARSE XLSX FILES
+  listener.use(xlsxExtractorPlugin({ rawNumbers: true }))
 }
