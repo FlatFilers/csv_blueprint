@@ -2,7 +2,12 @@ import { FlatfileListener } from "@flatfile/listener";
 import { recordHook } from "@flatfile/plugin-record-hook";
 import { xlsxExtractorPlugin } from "@flatfile/plugin-xlsx-extractor";
 import { XMLExtractor } from "@flatfile/plugin-xml-extractor";
-import { companyValidations, employeeValidations, locationValidations } from "./blueprints";
+//import { pdfExtractorPlugin } from "./jobs/pdf-extractor";
+import {
+  companyValidations,
+  employeeValidations,
+  locationValidations,
+} from "./blueprints";
 import { configureSpace } from "./jobs/space/configure";
 import { seedCountries } from "./handlers/seed.countries";
 import reviewData from "./jobs/workbook/review-data";
@@ -29,6 +34,6 @@ export default function (listener: FlatfileListener) {
 
   listener.use(xlsxExtractorPlugin());
   listener.use(XMLExtractor());
-  // pdf extractor
   listener.use(xlsxSinkPlugin());
+  //  listener.use(pdfExtractorPlugin());
 }
