@@ -44,6 +44,7 @@ export function simpleSpaceSetup(setup: SetupFactory) {
           await api.spaces.update(spaceId, {
             environmentId: environmentId,
             primaryWorkbookId: workbookId,
+            ...config.space,
           });
         }
       }),
@@ -55,5 +56,6 @@ export function simpleSpaceSetup(setup: SetupFactory) {
 type SetupFactory = Setup | ((event: FlatfileEvent) => Setup | Promise<Setup>);
 type Setup = {
   workbook: PartialWb;
+  space?: Partial<Flatfile.spaces.SpaceConfig>;
 };
 type PartialWb = Partial<Flatfile.CreateWorkbookConfig>;

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npx parcel basic-app/index.html",
     "develop": "npx flatfile@latest develop src/index.ts",
+    "deploy:embedded": "npx flatfile@latest deploy src/mini.ts",
     "deploy": "npx flatfile@latest deploy src/index.ts"
   },
   "keywords": [],

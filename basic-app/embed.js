@@ -1,17 +1,13 @@
 import { initializeFlatfile } from "@flatfile/javascript";
 
 const flatfileOptions = {
-  publishableKey: "pk_faQWZQN689wX8J0jvuk4ryqNus2jYOnj",
-  environmentId: "dev_env_2gu2ANxb",
-  apiUrl: 'http://localhost:3000/v1',
-  baseUrl: 'http://localhost:6789',
-  displayAsModal: true,
+  publishableKey: "pk_owt69DYdp4wS1POx9ewQythIhZWJii0V",
+  environmentId: "us_env_72sDdlxY",
+  apiUrl: 'https://platform.flatfile.com/api/v1'
 };
 
 function launchImport() {
-  initializeFlatfile(flatfileOptions).then(() => {
-    //   do nothing
-  });
+  initializeFlatfile(flatfileOptions);
 }
 
 window.addEventListener("click", (e) => {
