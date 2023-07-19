@@ -56,6 +56,35 @@ export function locationValidations(record: FlatfileRecord) {
     return record;
   }
 
+  booleanFields.forEach((field) => {
+    let value = record.get(field);
+
+    if (typeof value === "string") {
+      value = synonyms[value.toLowerCase()];
+      record.set(field, value);
+      record.addInfo(field, `Mapped ${value} to boolean`);
+    }
+
+    if (typeof value !== "boolean") {
+      record.addError(field, "Must be boolean");
+    }
+  });
+
   // Return the validated record
   return record;
 }
+
+const sheet = locationsSheet;
+
+const booleanFields = sheet.fields.filter((field) => field.type === "boolean").map((field) => field.key);
+
+const synonyms = {
+  true: true,
+  yes: true,
+  y: true,
+  on: true,
+  false: false,
+  no: false,
+  n: false,
+  off: false,
+};
