@@ -17,11 +17,11 @@ export default function (listener: FlatfileListener) {
         records.map((r) => {
           console.log(JSON.stringify(r,null,2))
           if (r.values["id"].value === null) {
-            const val = Math.random()*9999
-            const value = JSON.stringify(Math.round(val))
-            r.values["id"].value = value
-            r.values["id"].messages = []
-            r.values["id"].messages.push({type: "info", message: "ID auto generated"})
+            const val = Math.random()*9999;
+            const value = JSON.stringify(Math.round(val));
+            r.values["id"].value = value;
+            r.values["id"].messages = [];
+            r.values["id"].messages.push({type: "info", message: "ID auto generated"});
           }
 
           return r;

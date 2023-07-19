@@ -15,7 +15,7 @@ export default function (listener: FlatfileListener) {
 
       await e.update(
         records.map((r) => {
-          if (Math.random() <= 0.5) {
+          if (Math.random() <= 0.1) {
             r.values["full"].messages.push({ type: "error", message: "Invalid value" });
           }
 
