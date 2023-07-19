@@ -34,9 +34,8 @@ export function simpleSpaceSetup(setup: SetupFactory) {
           spaceId,
           environmentId,
           name: "Workbook",
-          ...config,
+          ...config.workbook,
         });
-
         // Extracting the workbookId from the created workbook
         const workbookId = workbook.data.id;
 

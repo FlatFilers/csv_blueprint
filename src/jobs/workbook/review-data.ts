@@ -23,6 +23,16 @@ export default function reviewData(listener: FlatfileListener) {
           },
           ...employeeSheet.fields,
         ],
+        actions: [
+          {
+            operation: "check-watchlist",
+            mode: "foreground",
+            label: "👀 Check Watchlist",
+            description: "Validates data against the 'Watchlist'",
+            primary: true,
+          },
+          ...employeeSheet.actions,
+        ],
       };
 
       const createWorkbook = await api.workbooks.create({

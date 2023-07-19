@@ -29,5 +29,6 @@ export default function (listener: FlatfileListener) {
 
   listener.use(xlsxExtractorPlugin());
   listener.use(XMLExtractor());
+  // pdf extractor
   listener.use(xlsxSinkPlugin());
 }

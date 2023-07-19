@@ -1,6 +1,10 @@
 import { FlatfileListener } from "@flatfile/listener";
 import api from "@flatfile/api";
 
+/**
+ * todo: make this easier to read
+ * @param listener
+ */
 export default function (listener: FlatfileListener) {
   listener.filter({ job: "sheet:generate-ids" }, (jobListener) => {
     jobListener.on("job:ready", async (e) => {

@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@flatfile/api": "^1.5.14",
-    "@flatfile/javascript": "^0.0.1",
+    "@flatfile/javascript": "^0.0.6",
     "@flatfile/listener": "0.3.11",
     "@flatfile/plugin-record-hook": "^0.1.10",
     "@flatfile/plugin-xml-extractor": "^0.0.2",
