@@ -15,6 +15,7 @@
     "@flatfile/api": "^1.5.14",
     "@flatfile/listener": "0.3.11",
     "@flatfile/plugin-record-hook": "^0.1.10",
+    "@flatfile/plugin-xml-extractor": "^0.0.2",
     "@flatfile/plugin-xlsx-extractor": "^1.0.6",
     "axios": "^1.4.0",
     "email-validator": "^2.0.4",

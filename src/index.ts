@@ -1,6 +1,7 @@
 import { FlatfileListener } from "@flatfile/listener";
 import { recordHook } from "@flatfile/plugin-record-hook";
 import { xlsxExtractorPlugin } from "@flatfile/plugin-xlsx-extractor";
+import { XMLExtractor } from "@flatfile/plugin-xml-extractor";
 import { companyValidations, employeeValidations } from "./blueprints";
 import { configureSpace } from "./jobs/space:configure";
 import { seedCountries } from "./handlers/seed.countries";
@@ -27,5 +28,6 @@ export default function (listener: FlatfileListener) {
   listener.use(recordHook("employees", employeeValidations));
 
   listener.use(xlsxExtractorPlugin());
+  listener.use(XMLExtractor());
   listener.use(xlsxSinkPlugin());
 }
