@@ -49,7 +49,8 @@ export const employeeSheet: Flatfile.SheetConfig = {
       key: "middle",
       label: "Middle Name",
       type: "string",
-      description: "Please provide the worker's middle name. This is an optional field.",
+      description:
+        "Please provide the worker's middle name. This is an optional field.",
     },
     {
       key: "last",

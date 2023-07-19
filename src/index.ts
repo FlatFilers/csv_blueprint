@@ -3,11 +3,11 @@ import { recordHook } from "@flatfile/plugin-record-hook";
 import { xlsxExtractorPlugin } from "@flatfile/plugin-xlsx-extractor";
 import { XMLExtractor } from "@flatfile/plugin-xml-extractor";
 import { companyValidations, employeeValidations, locationValidations } from "./blueprints";
-import { configureSpace } from "./jobs/space:configure";
+import { configureSpace } from "./jobs/space/configure";
 import { seedCountries } from "./handlers/seed.countries";
-import reviewData from "./jobs/workbook:review-data";
-import watchList from "./jobs/watchlist";
-import { xlsxSinkPlugin } from "./jobs/export";
+import reviewData from "./jobs/workbook/review-data";
+import watchList from "./jobs/sheet/check-watchlist";
+import { xlsxSinkPlugin } from "./jobs/workbook/export";
 import generateIds from "./jobs/generateIds";
 
 /**

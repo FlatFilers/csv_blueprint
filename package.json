@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@flatfile/api": "^1.5.14",
+    "@flatfile/javascript": "^0.0.1",
     "@flatfile/listener": "0.3.11",
     "@flatfile/plugin-record-hook": "^0.1.10",
     "@flatfile/plugin-xml-extractor": "^0.0.2",
@@ -25,7 +26,7 @@
     "parse-full-name": "^1.2.6"
   },
   "prettier": {
-    "printWidth": 120
+    "printWidth": 80
   },
   "devDependencies": {
     "@types/node": "^18.16.0",

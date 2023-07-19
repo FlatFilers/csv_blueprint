@@ -3,11 +3,12 @@ import api from "@flatfile/api";
 import * as ExcelJS from "exceljs";
 import * as path from "path";
 import * as fs from "fs";
+import { jobHandler } from "../../plugins/job.handler";
 
 export const xlsxSinkPlugin = () => {
   return (listener: FlatfileListener) => {
-    listener.filter({ job: "workbook:downloadExcelWorkbook" }, (configure) => {
-      configure.on("job:ready", async (event: any) => {
+    listener.use(
+      jobHandler("workbook:downloadExcelWorkbook", async (event: any) => {
         const { jobId, workbookId, spaceId, environmentId } = event.context;
 
         // Get all sheets
@@ -18,8 +19,9 @@ export const xlsxSinkPlugin = () => {
         const records: any = {};
         for (let index = 0; index < sheets.length; index++) {
           const sheet = sheets[index];
-          const sheetRecords = await api.records.get(sheet.id, { includeMessages: true });
-          records[sheet.name] = sheetRecords;
+          records[sheet.name] = await api.records.get(sheet.id, {
+            includeMessages: true,
+          });
         }
         console.log("Records for sheets:", records);
 
@@ -56,24 +58,33 @@ export const xlsxSinkPlugin = () => {
               const newRow: any[] = [];
 
               // Write each cell to the Excel file
-              Object.entries(cellData).forEach(([column, value]: [string, any], cellIndex: number) => {
-                newRow.push(value.value);
-              });
+              Object.entries(cellData).forEach(
+                ([column, value]: [string, any], cellIndex: number) => {
+                  newRow.push(value.value);
+                },
+              );
 
               // Add the new row to the worksheet
               const row = newWorksheet.addRow(newRow);
 
-              Object.entries(cellData).forEach(([column, value]: [string, any], cellIndex: number) => {
-                const filtered = value.messages.filter((m) => m.type === "error");
+              Object.entries(cellData).forEach(
+                ([column, value]: [string, any], cellIndex: number) => {
+                  const filtered = value.messages.filter(
+                    (m) => m.type === "error",
+                  );
 
-                if (filtered.length === 0) return;
+                  if (filtered.length === 0) return;
 
-                const comments = filtered.map((m) => {
-                  return { font: { color: { argb: "FF0000" } }, text: m.message };
-                });
+                  const comments = filtered.map((m) => {
+                    return {
+                      font: { color: { argb: "FF0000" } },
+                      text: m.message,
+                    };
+                  });
 
-                row.getCell(cellIndex + 1).note = { texts: comments };
-              });
+                  row.getCell(cellIndex + 1).note = { texts: comments };
+                },
+              );
             });
           }
           console.log("Data written to workbook");
@@ -82,7 +93,10 @@ export const xlsxSinkPlugin = () => {
           const dateTime = new Date().toISOString().replace(/[:.]/g, "-");
 
           // Write workbook to a file with date and time in its name
-          const tempFilePath = path.join(__dirname, `Workbook_${dateTime}.xlsx`);
+          const tempFilePath = path.join(
+            __dirname,
+            `Workbook_${dateTime}.xlsx`,
+          );
           await workbook.xlsx.writeFile(tempFilePath);
 
           // Read the file as a stream
@@ -107,11 +121,12 @@ export const xlsxSinkPlugin = () => {
 
           await api.jobs.fail(jobId, {
             outcome: {
-              message: "This job failed probably because it couldn't write to the Excel file or upload it.",
+              message:
+                "This job failed probably because it couldn't write to the Excel file or upload it.",
             },
           });
         }
-      });
-    });
+      }),
+    );
   };
 };
