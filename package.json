@@ -25,8 +25,11 @@
     "exceljs": "^4.3.0",
     "flatfile": "^3.5.7",
     "formdata-node": "^5.0.1",
+    "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
     "node-fetch": "^3.3.1",
-    "parse-full-name": "^1.2.6"
+    "parse-full-name": "^1.2.6",
+    "path": "^0.12.7"
   },
   "prettier": {
     "printWidth": 80

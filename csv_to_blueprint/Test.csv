@@ -1,0 +1,3 @@
+﻿Worker ID,Pre-Hire ID,Position ID,Manager Position ID,Manager Organization Name,Employee Type,Hire Reason,Hire Date,First Day of Work,Active
+Required,Required,Required,Required,Required,Required,Required,Required,Optional,Required
+String,Number,Number,Number,String,String,String,Date,Date,Boolean
